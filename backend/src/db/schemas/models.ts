@@ -104,7 +104,7 @@ export enum TableName {
   SecretApprovalRequestSecretV2 = "secret_approval_requests_secrets_v2",
   SecretApprovalRequestSecretTagV2 = "secret_approval_request_secret_tags_v2",
   SnapshotSecretV2 = "secret_snapshot_secrets_v2",
-  ConsumerSecrets = "Consumer_secrets",
+  ConsumerSecrets = "consumer_secrets",
   // junction tables with tags
   SecretV2JnTag = "secret_v2_tag_junction",
   JnSecretTag = "secret_tag_junction",
