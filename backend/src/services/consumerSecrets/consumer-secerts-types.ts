@@ -1,5 +1,9 @@
 import { TGenericPermission } from "@app/lib/types";
 
+import { ActorAuthMethod, ActorType } from "../auth/auth-type";
+
+export type TCredentialType = "WEB_LOGIN" | "CREDIT_CARD" | "SECURE_NOTE";
+
 export type TWebLoginMetadata = {
   username: string;
   password: string;
@@ -23,20 +27,26 @@ export type TGetConsumerSecretsDTO = {
 } & TGenericPermission;
 
 export type TConsumerSecretPermission = {
+  actor: ActorType;
   actorId: string;
+  actorAuthMethod: ActorAuthMethod;
+  actorOrgId: string;
   orgId: string;
 };
 
-export type TCreateConsumerSecretDTO = {
+export type TCreatePublicConsumerSecretDTO = {
+  actor: ActorType;
   actorId: string;
   orgId: string;
   name: string;
-  credentialType: "WEB_LOGIN" | "CREDIT_CARD" | "SECURE_NOTE";
-  encryptedSecret: string;
+  credential_type: TCredentialType;
+  secretValue: string;
   iv: string;
   tag: string;
   metadata: TWebLoginMetadata | TCreditCardMetadata | TSecureNoteMetadata;
 };
+
+export type TCreateConsumerSecretDTO = TConsumerSecretPermission & TCreatePublicConsumerSecretDTO;
 
 export type TUpdateConsumerSecretDTO = TConsumerSecretPermission & {
   secretId: string;

@@ -99,7 +99,8 @@ import { certificateTemplateDALFactory } from "@app/services/certificate-templat
 import { certificateTemplateEstConfigDALFactory } from "@app/services/certificate-template/certificate-template-est-config-dal";
 import { certificateTemplateServiceFactory } from "@app/services/certificate-template/certificate-template-service";
 import { cmekServiceFactory } from "@app/services/cmek/cmek-service";
-import { consumerSecretsDALFactory } from "@app/services/consumerSecrets/consumer-secrets-dal";
+import { consumerSecretDALFactory } from "@app/services/consumerSecrets/consumer-secrets-dal";
+import { consumerSecretServiceFactory } from "@app/services/consumerSecrets/consumer-secrets-service";
 import { externalGroupOrgRoleMappingDALFactory } from "@app/services/external-group-org-role-mapping/external-group-org-role-mapping-dal";
 import { externalGroupOrgRoleMappingServiceFactory } from "@app/services/external-group-org-role-mapping/external-group-org-role-mapping-service";
 import { externalMigrationQueueFactory } from "@app/services/external-migration/external-migration-queue";
@@ -216,7 +217,6 @@ import { registerSecretScannerGhApp } from "../plugins/secret-scanner";
 import { registerV1Routes } from "./v1";
 import { registerV2Routes } from "./v2";
 import { registerV3Routes } from "./v3";
-import { consumerSecretsServiceFactory } from "@app/services/consumerSecrets/consumer-secrets-service";
 
 export const registerRoutes = async (
   server: FastifyZodProvider,
@@ -327,8 +327,9 @@ export const registerRoutes = async (
   const userGroupMembershipDAL = userGroupMembershipDALFactory(db);
   const secretScanningDAL = secretScanningDALFactory(db);
   const secretSharingDAL = secretSharingDALFactory(db);
+  const consumerSecretDAL = consumerSecretDALFactory(db);
+
   const licenseDAL = licenseDALFactory(db);
-  const consumerSecrets = consumerSecretsDALFactory(db);
   const dynamicSecretDAL = dynamicSecretDALFactory(db);
   const dynamicSecretLeaseDAL = dynamicSecretLeaseDALFactory(db);
 
@@ -950,8 +951,11 @@ export const registerRoutes = async (
     kmsService
   });
 
-  const consumerSecretsService = consumerSecretsServiceFactory({
-    consumerSecrets
+  const consumerSecretsService = consumerSecretServiceFactory({
+    permissionService,
+    consumerSecretDAL,
+    orgDAL,
+    kmsService
   });
 
   const accessApprovalPolicyService = accessApprovalPolicyServiceFactory({
@@ -1350,7 +1354,7 @@ export const registerRoutes = async (
     slack: slackService,
     workflowIntegration: workflowIntegrationService,
     migration: migrationService,
-    externalGroupOrgRoleMapping: externalGroupOrgRoleMappingService
+    externalGroupOrgRoleMapping: externalGroupOrgRoleMappingService,
     consumerSecrets: consumerSecretsService
   });
 
