@@ -5,16 +5,16 @@
 
 import { z } from "zod";
 
+import { zodBuffer } from "@app/lib/zod";
+
 import { TImmutableDBKeys } from "./models";
 
 export const ConsumerSecretsSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   credential_type: z.string(),
-  encrypted_secret: z.string().nullable().optional(),
+  encrypted_secret: zodBuffer.nullable().optional(),
   iv: z.string(),
-  tag: z.string(),
-  metadata: z.unknown(),
   userId: z.string().uuid(),
   orgId: z.string().uuid(),
   createdAt: z.date(),
