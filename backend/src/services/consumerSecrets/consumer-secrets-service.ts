@@ -24,30 +24,27 @@ export const consumerSecretServiceFactory = ({
     actor,
     actorId,
     orgId,
-    actorAuthMethod,
     actorOrgId,
+    actorAuthMethod,
     name,
+    encrypted_secret,
     credential_type,
-    secretValue,
-    metadata
+    iv
   }: TCreateConsumerSecretDTO) => {
     const { permission } = await permissionService.getOrgPermission(actor, actorId, orgId, actorAuthMethod, actorOrgId);
 
     if (!permission) throw new ForbiddenRequestError({ name: "User is not part of the specified organization" });
 
     const encryptWithRoot = kmsService.encryptWithRootKey();
-
-    const encryptedSecret = encryptWithRoot(Buffer.from(secretValue));
+    const encryptedSecret = encryptWithRoot(Buffer.from(encrypted_secret));
 
     const newConsumerSecret = await consumerSecretDAL.create({
       encrypted_secret: encryptedSecret,
-      iv: null,
-      tag: null,
       name,
       userId: actorId,
       orgId,
       credential_type,
-      metadata: JSON.stringify(metadata)
+      iv
     });
 
     return { id: newConsumerSecret.id };
