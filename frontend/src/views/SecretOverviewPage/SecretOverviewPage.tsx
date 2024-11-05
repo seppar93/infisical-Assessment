@@ -653,17 +653,17 @@ export const SecretOverviewPage = () => {
   return (
     <>
       <div className="container mx-auto px-6 text-mineshaft-50 dark:[color-scheme:dark]">
-        <div className="relative right-5 ml-4">
+        <div className="relative ml-4 right-5">
           <NavHeader pageName={t("dashboard.title")} isProjectRelated />
         </div>
         <div className="space-y-8">
-          <div className="flex w-full items-baseline justify-between">
+          <div className="flex items-baseline justify-between w-full">
             <div className="mt-6">
               <p className="text-3xl font-semibold text-bunker-100">Secrets Overview</p>
               <p className="text-md text-bunker-300">
                 Inject your secrets using
                 <a
-                  className="ml-1 text-mineshaft-300 underline decoration-primary-800 underline-offset-4 duration-200 hover:text-mineshaft-100 hover:decoration-primary-600"
+                  className="ml-1 underline duration-200 text-mineshaft-300 decoration-primary-800 underline-offset-4 hover:text-mineshaft-100 hover:decoration-primary-600"
                   href="https://infisical.com/docs/cli/overview"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -672,7 +672,7 @@ export const SecretOverviewPage = () => {
                 </a>
                 ,
                 <a
-                  className="ml-1 text-mineshaft-300 underline decoration-primary-800 underline-offset-4 duration-200 hover:text-mineshaft-100 hover:decoration-primary-600"
+                  className="ml-1 underline duration-200 text-mineshaft-300 decoration-primary-800 underline-offset-4 hover:text-mineshaft-100 hover:decoration-primary-600"
                   href="https://infisical.com/docs/documentation/getting-started/api"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -681,7 +681,7 @@ export const SecretOverviewPage = () => {
                 </a>
                 ,
                 <a
-                  className="ml-1 text-mineshaft-300 underline decoration-primary-800 underline-offset-4 duration-200 hover:text-mineshaft-100 hover:decoration-primary-600"
+                  className="ml-1 underline duration-200 text-mineshaft-300 decoration-primary-800 underline-offset-4 hover:text-mineshaft-100 hover:decoration-primary-600"
                   href="https://infisical.com/docs/sdks/overview"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -690,7 +690,7 @@ export const SecretOverviewPage = () => {
                 </a>
                 , and
                 <a
-                  className="ml-1 text-mineshaft-300 underline decoration-primary-800 underline-offset-4 duration-200 hover:text-mineshaft-100 hover:decoration-primary-600"
+                  className="ml-1 underline duration-200 text-mineshaft-300 decoration-primary-800 underline-offset-4 hover:text-mineshaft-100 hover:decoration-primary-600"
                   href="https://infisical.com/docs/documentation/getting-started/introduction"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -779,7 +779,7 @@ export const SecretOverviewPage = () => {
                       iconPos="right"
                     >
                       <div className="flex items-center gap-2">
-                        <FontAwesomeIcon icon={faFingerprint} className=" text-yellow-700" />
+                        <FontAwesomeIcon icon={faFingerprint} className="text-yellow-700 " />
                         <span>Dynamic Secrets</span>
                       </div>
                     </DropdownMenuItem>
@@ -824,7 +824,7 @@ export const SecretOverviewPage = () => {
                       <IconButton
                         ariaLabel="add-folder-or-import"
                         variant="outline_bg"
-                        className="rounded-l-none bg-mineshaft-600 p-3"
+                        className="p-3 rounded-l-none bg-mineshaft-600"
                       >
                         <FontAwesomeIcon icon={faAngleDown} />
                       </IconButton>
@@ -864,7 +864,7 @@ export const SecretOverviewPage = () => {
           selectedEntries={selectedEntries}
           resetSelectedEntries={resetSelectedEntries}
         />
-        <div className="thin-scrollbar mt-4">
+        <div className="mt-4 thin-scrollbar">
           <TableContainer
             onScroll={(e) => setScrollOffset(e.currentTarget.scrollLeft)}
             className="thin-scrollbar"
@@ -884,7 +884,7 @@ export const SecretOverviewPage = () => {
                             : ""
                         }
                       >
-                        <div className="mr-4 ml-2">
+                        <div className="ml-2 mr-4">
                           <Checkbox
                             isDisabled={totalCount === 0}
                             id="checkbox-select-all-rows"
@@ -933,7 +933,7 @@ export const SecretOverviewPage = () => {
                           </button>
                           {missingKeyCount > 0 && (
                             <Tooltip
-                              className="max-w-none lowercase"
+                              className="lowercase max-w-none"
                               content={`${missingKeyCount} secrets missing\n compared to other environments`}
                             >
                               <div className="ml-2 flex h-[1.1rem] cursor-default items-center justify-center rounded-sm border border-red-400 bg-red-600 p-1 text-xs font-medium text-bunker-100">
@@ -1073,15 +1073,15 @@ export const SecretOverviewPage = () => {
               </TBody>
               <TFoot>
                 <Tr className="sticky bottom-0 z-10 border-0 bg-mineshaft-800">
-                  <Td className="sticky left-0 z-10 border-0 bg-mineshaft-800 p-0">
+                  <Td className="sticky left-0 z-10 p-0 border-0 bg-mineshaft-800">
                     <div
                       className="w-full border-t border-r border-mineshaft-600"
                       style={{ height: "45px" }}
                     />
                   </Td>
                   {visibleEnvs?.map(({ name, slug }) => (
-                    <Td key={`explore-${name}-btn`} className="border-0 border-mineshaft-600 p-0">
-                      <div className="flex w-full items-center justify-center border-r border-t border-mineshaft-600 px-5 py-2">
+                    <Td key={`explore-${name}-btn`} className="p-0 border-0 border-mineshaft-600">
+                      <div className="flex items-center justify-center w-full px-5 py-2 border-t border-r border-mineshaft-600">
                         <Button
                           size="xs"
                           variant="outline_bg"
@@ -1106,7 +1106,7 @@ export const SecretOverviewPage = () => {
                   folderCount={totalFolderCount}
                 />
               }
-              className="rounded-b-md border-t border-solid border-t-mineshaft-600"
+              className="border-t border-solid rounded-b-md border-t-mineshaft-600"
               count={totalCount}
               page={page}
               perPage={perPage}

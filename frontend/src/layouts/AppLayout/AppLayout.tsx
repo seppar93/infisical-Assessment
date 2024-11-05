@@ -349,7 +349,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
 
   if (shouldShowMfa) {
     return (
-      <div className="flex max-h-screen min-h-screen flex-col items-center justify-center gap-2 overflow-y-auto bg-gradient-to-tr from-mineshaft-600 via-mineshaft-800 to-bunker-700">
+      <div className="flex flex-col items-center justify-center max-h-screen min-h-screen gap-2 overflow-y-auto bg-gradient-to-tr from-mineshaft-600 via-mineshaft-800 to-bunker-700">
         <Mfa
           email={user.email as string}
           successCallback={mfaSuccessCallback}
@@ -361,18 +361,18 @@ export const AppLayout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <div className="dark hidden h-screen w-full flex-col overflow-x-hidden md:flex">
+      <div className="flex-col hidden w-full h-screen overflow-x-hidden dark md:flex">
         {!window.isSecureContext && <InsecureConnectionBanner />}
-        <div className="flex flex-grow flex-col overflow-y-hidden md:flex-row">
-          <aside className="dark w-full border-r border-mineshaft-600 bg-gradient-to-tr from-mineshaft-700 via-mineshaft-800 to-mineshaft-900 md:w-60">
+        <div className="flex flex-col flex-grow overflow-y-hidden md:flex-row">
+          <aside className="w-full border-r dark border-mineshaft-600 bg-gradient-to-tr from-mineshaft-700 via-mineshaft-800 to-mineshaft-900 md:w-60">
             <nav className="items-between flex h-full flex-col justify-between overflow-y-auto dark:[color-scheme:dark]">
               <div>
                 {!router.asPath.includes("personal") && (
-                  <div className="flex h-12 cursor-default items-center px-3 pt-6">
+                  <div className="flex items-center h-12 px-3 pt-6 cursor-default">
                     {(router.asPath.includes("project") ||
                       router.asPath.includes("integrations")) && (
                       <Link href={`/org/${currentOrg?.id}/overview`}>
-                        <div className="pl-1 pr-2 text-mineshaft-400 duration-200 hover:text-mineshaft-100">
+                        <div className="pl-1 pr-2 duration-200 text-mineshaft-400 hover:text-mineshaft-100">
                           <FontAwesomeIcon icon={faArrowLeft} />
                         </div>
                       </Link>
@@ -387,14 +387,14 @@ export const AppLayout = ({ children }: LayoutProps) => {
                             {currentOrg?.name.charAt(0)}
                           </div>
                           <div
-                            className="overflow-hidden truncate text-ellipsis pl-2 text-sm text-mineshaft-100"
+                            className="pl-2 overflow-hidden text-sm truncate text-ellipsis text-mineshaft-100"
                             style={{ maxWidth: "140px" }}
                           >
                             {currentOrg?.name}
                           </div>
                           <FontAwesomeIcon
                             icon={faAngleDown}
-                            className="pl-1 pt-1 text-xs text-mineshaft-300"
+                            className="pt-1 pl-1 text-xs text-mineshaft-300"
                           />
                         </div>
                       </DropdownMenuTrigger>
@@ -428,7 +428,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                                 variant="plain"
                                 colorSchema="secondary"
                                 size="xs"
-                                className="flex w-full items-center justify-start p-0 font-normal"
+                                className="flex items-center justify-start w-full p-0 font-normal"
                                 leftIcon={
                                   currentOrg?.id === org.id && (
                                     <FontAwesomeIcon icon={faCheck} className="mr-3 text-primary" />
@@ -448,17 +448,17 @@ export const AppLayout = ({ children }: LayoutProps) => {
                             variant="plain"
                             colorSchema="secondary"
                             size="xs"
-                            className="flex w-full items-center justify-start p-0 font-normal"
+                            className="flex items-center justify-start w-full p-0 font-normal"
                             leftIcon={
                               <FontAwesomeIcon icon={faPlus} className="mr-3 text-primary" />
                             }
                           >
-                            <div className="flex w-full items-center justify-between">
+                            <div className="flex items-center justify-between w-full">
                               Create New Organization
                             </div>
                           </Button>
                         </DropdownMenuItem> */}
-                        <div className="mt-1 h-1 border-t border-mineshaft-600" />
+                        <div className="h-1 mt-1 border-t border-mineshaft-600" />
                         <button type="button" onClick={logOutUser} className="w-full">
                           <DropdownMenuItem>Log Out</DropdownMenuItem>
                         </button>
@@ -470,7 +470,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                         className="p-1 hover:bg-primary-400 hover:text-black data-[state=open]:bg-primary-400 data-[state=open]:text-black"
                       >
                         <div
-                          className="child flex items-center justify-center rounded-full bg-mineshaft pr-1 text-mineshaft-300 hover:bg-mineshaft-500"
+                          className="flex items-center justify-center pr-1 rounded-full child bg-mineshaft text-mineshaft-300 hover:bg-mineshaft-500"
                           style={{ fontSize: "11px", width: "26px", height: "26px" }}
                         >
                           {user?.firstName?.charAt(0)}
@@ -522,7 +522,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                             Organization Admin Console
                           </DropdownMenuItem>
                         </Link>
-                        <div className="mt-1 h-1 border-t border-mineshaft-600" />
+                        <div className="h-1 mt-1 border-t border-mineshaft-600" />
                         <button type="button" onClick={logOutUser} className="w-full">
                           <DropdownMenuItem>Log Out</DropdownMenuItem>
                         </button>
@@ -532,7 +532,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                 )}
                 {!router.asPath.includes("org") &&
                   (!router.asPath.includes("personal") && currentWorkspace ? (
-                    <div className="mt-5 mb-4 w-full p-3">
+                    <div className="w-full p-3 mt-5 mb-4">
                       <p className="ml-1.5 mb-1 text-xs font-semibold uppercase text-gray-400">
                         Project
                       </p>
@@ -547,7 +547,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                         position="popper"
                         dropdownContainerClassName="text-bunker-200 bg-mineshaft-800 border border-mineshaft-600 z-50 max-h-96 border-gray-700"
                       >
-                        <div className="no-scrollbar::-webkit-scrollbar h-full no-scrollbar">
+                        <div className="h-full no-scrollbar::-webkit-scrollbar no-scrollbar">
                           {workspacesWithFaveProp
                             .filter((ws) => ws.orgId === currentOrg?.id)
                             .map(({ id, name, isFavorite }) => (
@@ -567,7 +567,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                                     {name}
                                   </SelectItem>
                                 </div>
-                                <div className="col-span-1 flex items-center">
+                                <div className="flex items-center col-span-1">
                                   {isFavorite ? (
                                     <FontAwesomeIcon
                                       icon={faSolidStar}
@@ -591,7 +591,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                               </div>
                             ))}
                         </div>
-                        <hr className="mt-1 mb-1 h-px border-0 bg-gray-700" />
+                        <hr className="h-px mt-1 mb-1 bg-gray-700 border-0" />
                         <div className="w-full">
                           <OrgPermissionCan
                             I={OrgPermissionActions.Create}
@@ -599,7 +599,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                           >
                             {(isAllowed) => (
                               <Button
-                                className="w-full bg-mineshaft-700 py-2 text-bunker-200"
+                                className="w-full py-2 bg-mineshaft-700 text-bunker-200"
                                 colorSchema="primary"
                                 variant="outline_bg"
                                 size="sm"
@@ -622,7 +622,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                     </div>
                   ) : (
                     <Link href={`/org/${currentOrg?.id}/overview`}>
-                      <div className="my-6 flex cursor-default items-center justify-center pr-2 text-sm text-mineshaft-300 hover:text-mineshaft-100">
+                      <div className="flex items-center justify-center pr-2 my-6 text-sm cursor-default text-mineshaft-300 hover:text-mineshaft-100">
                         <FontAwesomeIcon icon={faArrowLeft} className="pr-3" />
                         Back to organization
                       </div>
@@ -775,6 +775,17 @@ export const AppLayout = ({ children }: LayoutProps) => {
                           </MenuItem>
                         </a>
                       </Link>
+                      <Link href={`/org/${currentOrg?.id}/consumer-secrets`} passHref>
+                        <a>
+                          <MenuItem
+                            isSelected={router.asPath === `/org/${currentOrg?.id}/consumer-secrets`}
+                            icon="system-outline-90-lock-closed"
+                            
+                          >
+                            Consumer Secrets
+                          </MenuItem>
+                        </a>
+                      </Link>
                       {(window.location.origin.includes("https://app.infisical.com") ||
                         window.location.origin.includes("https://eu.infisical.com") ||
                         window.location.origin.includes("https://gamma.infisical.com")) && (
@@ -830,7 +841,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                     onClick={() => router.push(`/org/${router.query.id}/members?action=invite`)}
                     className="w-full"
                   >
-                    <div className="mb-3 w-full pl-5 duration-200 hover:text-mineshaft-200">
+                    <div className="w-full pl-5 mb-3 duration-200 hover:text-mineshaft-200">
                       <FontAwesomeIcon icon={faPlus} className="mr-3" />
                       Invite people
                     </div>
@@ -838,7 +849,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                 )}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <div className="mb-2 w-full pl-5 duration-200 hover:text-mineshaft-200">
+                    <div className="w-full pl-5 mb-2 duration-200 hover:text-mineshaft-200">
                       <FontAwesomeIcon icon={faQuestion} className="mr-3 px-[0.1rem]" />
                       Help & Support
                     </div>
@@ -850,9 +861,9 @@ export const AppLayout = ({ children }: LayoutProps) => {
                           target="_blank"
                           rel="noopener noreferrer"
                           href={String(url)}
-                          className="flex w-full items-center rounded-md font-normal text-mineshaft-300 duration-200"
+                          className="flex items-center w-full font-normal duration-200 rounded-md text-mineshaft-300"
                         >
-                          <div className="relative flex w-full cursor-pointer select-none items-center justify-start rounded-md">
+                          <div className="relative flex items-center justify-start w-full rounded-md cursor-pointer select-none">
                             {icon}
                             <div className="text-sm">{text}</div>
                           </div>
@@ -860,7 +871,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                       </DropdownMenuItem>
                     ))}
                     {infisicalPlatformVersion && (
-                      <div className="mb-2 mt-2 w-full cursor-default pl-5 text-sm duration-200 hover:text-mineshaft-200">
+                      <div className="w-full pl-5 mt-2 mb-2 text-sm duration-200 cursor-default hover:text-mineshaft-200">
                         <FontAwesomeIcon icon={faInfo} className="mr-4 px-[0.1rem]" />
                         Version: {infisicalPlatformVersion}
                       </div>
@@ -923,7 +934,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                     </FormControl>
                   )}
                 />
-                <div className="mt-4 pl-1">
+                <div className="pl-1 mt-4">
                   <Controller
                     control={control}
                     name="addMembers"
@@ -950,13 +961,13 @@ export const AppLayout = ({ children }: LayoutProps) => {
                     )}
                   />
                 </div>
-                <div className="mt-14 flex">
+                <div className="flex mt-14">
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem
                       value="advance-settings"
                       className="data-[state=open]:border-none"
                     >
-                      <AccordionTrigger className="h-fit flex-none pl-1 text-sm">
+                      <AccordionTrigger className="flex-none pl-1 text-sm h-fit">
                         <div className="order-1 ml-3">Advanced Settings</div>
                       </AccordionTrigger>
                       <AccordionContent>
@@ -972,7 +983,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                                 onValueChange={(e) => {
                                   onChange(e);
                                 }}
-                                className="mb-12 w-full bg-mineshaft-600"
+                                className="w-full mb-12 bg-mineshaft-600"
                               >
                                 <SelectItem value={INTERNAL_KMS_KEY_ID} key="kms-internal">
                                   Default Infisical KMS
@@ -991,7 +1002,7 @@ export const AppLayout = ({ children }: LayoutProps) => {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                  <div className="absolute right-0 bottom-0 mr-6 mb-6 flex items-start justify-end">
+                  <div className="absolute bottom-0 right-0 flex items-start justify-end mb-6 mr-6">
                     <Button
                       key="layout-cancel-create-project"
                       onClick={() => handlePopUpClose("addNewWs")}
@@ -1030,8 +1041,8 @@ export const AppLayout = ({ children }: LayoutProps) => {
         </div>
       </div>
       <div className="z-[200] flex h-screen w-screen flex-col items-center justify-center bg-bunker-800 md:hidden">
-        <FontAwesomeIcon icon={faMobile} className="mb-8 text-7xl text-gray-300" />
-        <p className="max-w-sm px-6 text-center text-lg text-gray-200">
+        <FontAwesomeIcon icon={faMobile} className="mb-8 text-gray-300 text-7xl" />
+        <p className="max-w-sm px-6 text-lg text-center text-gray-200">
           {` ${t("common.no-mobile")} `}
         </p>
       </div>
